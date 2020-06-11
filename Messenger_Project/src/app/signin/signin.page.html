@@ -1,9 +1,30 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>signin</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-
+    <div class="container">
+        <div class="background">
+            <b>MESSENGER</b>
+            <form class="form">
+                <ion-input type="text" class="user-eff" [(ngModel)]="user.email" [ngModelOptions]="{standalone: true}" placeholder="Email">
+                    <i class="fas fa-user"></i>
+                    <span class="focus-border"><i></i></span>
+                </ion-input>
+                <ion-input type="password" class="user-eff" [(ngModel)]="user.password" [ngModelOptions]="{standalone: true}" placeholder="Password">
+                    <i class="fas fa-key"></i>
+                    <span class="focus-border"><i></i></span>
+                </ion-input>
+            </form>
+            <div class="form">
+                <button type="submit" class="btn" (click)="signIn()">ĐĂNG NHẬP</button>
+            </div>
+            <div class="footer">
+                <a [routerLink]="['/signup']" class="signup">Đăng ký ?</a>
+                <a [routerLink]="['/forgetpass']" class="forgetpass">Quên mật khẩu ?</a>
+            </div>
+        </div>
+    </div>
 </ion-content>
+<ion-footer>
+    <div class="foot">
+        <p>from</p>
+        <b>FACE BOOK</b>
+    </div>
+</ion-footer>

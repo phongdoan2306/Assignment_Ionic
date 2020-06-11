@@ -1,9 +1,26 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>forgetpass</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+    <div class="container">
+        <div class="background">
+            <b>MISS PASS</b>
+            <div class="form">
+                <ion-input type="text" class="user-eff" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="Email">
+                    <span class="focus-border"><i></i></span>
+                </ion-input>
+            </div>
+            <div class="form">
+                <button type="button" class="btn" (click)="sendRecoverPass()">SEND</button>
+            </div>
 
+            <div class="footer">
+                <a class="mess" (click)="backMess()">Về trang chủ ?</a>
+                <a class="signup" (click)="goSignUp()">Đăng ký ?</a>
+            </div>
+        </div>
+    </div>
 </ion-content>
+<ion-footer>
+    <div class="foot">
+        <p>from</p>
+        <b>FACE BOOK</b>
+    </div>
+</ion-footer>

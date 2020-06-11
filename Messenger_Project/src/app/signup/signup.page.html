@@ -1,9 +1,33 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>signup</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+    <div class="container">
+        <div class="background">
+            <b>PASSWORD</b>
+            <form class="form">
 
+                <ion-input type="email" [(ngModel)]="newUser.email" [ngModelOptions]="{standalone: true}" class="user-eff" placeholder="Email">
+                    <span class="focus-border"><i></i></span>
+                </ion-input>
+                <ion-input type="password" [(ngModel)]="newUser.password" [ngModelOptions]="{standalone: true}" class="user-eff" placeholder="Password">
+                    <span class="focus-border"><i></i></span>
+                </ion-input>
+                <ion-input type="text" [(ngModel)]="newUser.displayName" [ngModelOptions]="{standalone: true}" class="user-eff" placeholder="Nickname">
+                    <span class="focus-border"><i></i></span>
+                </ion-input>
+
+            </form>
+            <div class="form">
+                <button type="button" class="btn" (click)="signUp()">ĐĂNG KÝ</button>
+            </div>
+            <div class="footer">
+                <a class="mess" (click)="backMess()">Về trang chủ ?</a>
+                <a class="forgetpass" (click)="goForgetPass()">Quên mật khẩu ?</a>
+            </div>
+        </div>
+    </div>
 </ion-content>
+<ion-footer>
+    <div class="foot">
+        <p>from</p>
+        <b>FACE BOOK</b>
+    </div>
+</ion-footer>

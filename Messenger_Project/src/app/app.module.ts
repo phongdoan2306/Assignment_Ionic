@@ -21,8 +21,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [
-    BrowserModule, IonicModule.forRoot(), AppRoutingModule, AngularFireDatabaseModule,
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, AngularFireDatabaseModule,
     SocketIoModule.forRoot(config)
   ],
   providers: [

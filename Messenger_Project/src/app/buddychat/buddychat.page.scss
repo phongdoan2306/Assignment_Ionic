@@ -1,0 +1,152 @@
+*::-webkit-scrollbar,
+::-webkit-scrollbar {
+    display: none;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+.ios ion-toolbar,
+.md ion-toolbar {
+    --border-width: 0;
+}
+
+ion-header {
+    ion-toolbar {
+        box-shadow: 0 -5px 5px 5px gray;
+        ion-grid {
+            ion-row {
+                ion-col {
+                    --padding: 0;
+                    height: 40px;
+                    .fa-arrow-left {
+                        cursor: pointer;
+                        font-weight: bold;
+                        font-size: 23px;
+                        margin-left: 5px;
+                        line-height: 35px;
+                        color: rgb(0, 132, 255);
+                    }
+                    ion-avatar {
+                        margin-left: 5px;
+                        height: 40px;
+                        cursor: pointer;
+                        text-align: center;
+                        img {
+                            width: 70%;
+                            height: 35px;
+                        }
+                        &:focus {
+                            outline: 0;
+                        }
+                    }
+                    .info {
+                        line-height: 36px;
+                        padding-left: 10px;
+                        b {
+                            font-family: "Roboto", sans-serif;
+                            font-size: 20px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+ion-content {
+    .container {
+        height: 100%;
+        overflow: scroll;
+    }
+    ion-grid {
+        ion-row {
+            ion-col {
+                padding: 0;
+            }
+            .message {
+                // padding: 10px;
+                border-radius: 10px;
+                margin-bottom: 4px;
+                white-space: pre-wrap;
+                img {
+                    width: 25px;
+                    height: 25px;
+                }
+            }
+            .my-message {
+                text-align: right;
+                .friend {
+                    background-color: blue;
+                    color: white;
+                    border-radius: 20px;
+                    text-align: left;
+                    padding: 5px 10px;
+                    margin: 5px 0;
+                    opacity: 0.7;
+                }
+                img {
+                    border-radius: 100%;
+                    width: 40px;
+                    height: 40px;
+                    background-size: cover;
+                    border: 2px solid gray;
+                    padding: 2px;
+                }
+            }
+            .other-message {
+                .user {
+                    background-color: lightgrey;
+                    border-radius: 20px;
+                    text-align: left;
+                    padding: 5px 10px;
+                    margin: 5px 0;
+                }
+                img {
+                    padding: 2px;
+                    border: 2px solid gray;
+                    border-radius: 100%;
+                    width: 40px;
+                    height: 40px;
+                    background-size: cover;
+                }
+            }
+            .time {
+                color: #dfdfdf;
+                float: right;
+                font-size: small;
+            }
+        }
+    }
+}
+
+ion-footer {
+    ion-toolbar {
+        ion-row {
+            ion-col {
+                .message-input {
+                    margin-top: 2px;
+                    border: 1px solid var(--ion-color-medium);
+                    background: #fff;
+                    --border-radius: 5px;
+                    --padding-bottom: 5px;
+                    --padding-top: 5px;
+                    --padding-start: 10px;
+                    --padding-end: 10px;
+                    height: 30px;
+                    max-height: 30px;
+                    overflow: hidden;
+                    font-family: "Times New Roman", Times, serif;
+                    font-size: 16px;
+                }
+                .msg-btn {
+                    margin-top: 5px;
+                    color: blue;
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+}

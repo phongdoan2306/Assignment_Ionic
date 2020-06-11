@@ -1,9 +1,59 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>buddychat</ion-title>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1">
+          <i class="fas fa-arrow-left" (click)="backHome()"></i>
+        </ion-col>
+        <ion-col size="2">
+          <ion-avatar>
+            <img src="{{buddy.photoURL}}">
+          </ion-avatar>
+        </ion-col>
+        <ion-col size="6">
+          <div class="info">
+            <b>{{buddy.displayName}}</b>
+          </div>
+        </ion-col>
+        <ion-col size="3">
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div class="container">
+    <ion-grid>
+      <ion-row *ngFor="let message of messages">
 
+        <ion-col size="9" *ngIf="message.sentby !== currentUser" class="message other-message">
+          <h5 class="user">{{ message.msg }}</h5>
+        </ion-col>
+
+        <ion-col offset="3" size="9" *ngIf="message.sentby === currentUser" class="message my-message">
+          <h5 class="friend">{{ message.msg }}</h5>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color="light">
+    <ion-row align-items-center>
+      <ion-col size="10">
+        <ion-textarea auto-grow class="message-input" rows="1" col="3" [(ngModel)]="message"></ion-textarea>
+      </ion-col>
+      <ion-col size="2">
+        <ion-buttons>
+          <button ion-button (click)="sendMessage()" class="msg-btn">
+            <ion-icon name="send"></ion-icon>
+          </button>
+        </ion-buttons>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

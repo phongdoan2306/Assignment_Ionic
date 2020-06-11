@@ -12,7 +12,6 @@
         </ion-col>
         <ion-col size="4">
           <div class="icon">
-            <i class="fas fa-address-book"></i>
             <i class="fas fa-user-plus" (click)="goAddFriends()"></i>
           </div>
         </ion-col>
@@ -27,7 +26,7 @@
   </nav>
   <nav>
     <ion-grid>
-      <ion-row *ngFor='let friend of myFriends' (click)="buddyChat(friend)">
+      <ion-row *ngFor='let friend of myFriends' (click)="buddyChat(friend)" style="cursor: pointer;">
         <ion-col size="2">
           <ion-avatar>
             <img src="{{friend.photoURL}}">

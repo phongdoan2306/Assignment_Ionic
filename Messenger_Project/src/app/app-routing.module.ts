@@ -42,7 +42,11 @@ const routes: Routes = [
   {
     path: 'buddychat',
     loadChildren: () => import('./buddychat/buddychat.module').then( m => m.BuddychatPageModule)
+  },  {
+    path: 'notification',
+    loadChildren: () => import('./notification/notification.module').then( m => m.NotificationPageModule)
   },
+
 ];
 
 @NgModule({

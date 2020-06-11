@@ -1,9 +1,40 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>detail</ion-title>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="2">
+          <i class="fas fa-arrow-left" (click)="backSetting()"></i>
+        </ion-col>
+        <ion-col size="10">
+          <p>Cài đặt</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <div class="container">
+    <nav>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-avatar>
+              <img src="{{photoUrl}}">
+            </ion-avatar>
+            <label class="custom-file-upload">
+              <!-- <ion-input type="file" (change)="editImage($event.target.files)"></ion-input> -->
+              <ion-icon name="camera" class="camera"></ion-icon>
+            </label>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <h2>{{displayName}}</h2>
+            <ion-icon name="pencil-sharp" class="pencil" (click)="editname()"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </nav>
+  </div>
 </ion-content>

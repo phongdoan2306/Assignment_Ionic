@@ -1,0 +1,102 @@
+*::-webkit-scrollbar,
+::-webkit-scrollbar {
+    display: none;
+}
+
+.ios ion-toolbar,
+.md ion-toolbar {
+    --border-width: 0;
+}
+
+ion-header {
+    ion-toolbar {
+        --border-width: 0;
+        ion-grid {
+            ion-row {
+                ion-col {
+                    height: 30px;
+                    .fa-arrow-left {
+                        cursor: pointer;
+                        font-weight: bold;
+                        font-size: 23px;
+                        margin-left: 5px;
+                    }
+                    p {
+                        display: inline-block;
+                        font-family: "Roboto", sans-serif;
+                        font-size: 18px;
+                        margin: 0;
+                        font-weight: bold;
+                        height: 30px;
+                        padding-top: 2px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+ion-content {
+    .container {
+        overflow: scroll;
+        height: 100%;
+        nav {
+            margin-top: 15px;
+            ion-grid {
+                padding: 0;
+                ion-row {
+                    ion-col {
+                        padding: 0;
+                        text-align: center;
+                        position: relative;
+                        ion-avatar {
+                            margin: 0 98px;
+                            height: 100px !important;
+                            width: 100px !important;
+                            img {
+                                border: 0;
+                            }
+                        }
+                        .custom-file-upload {
+                            position: absolute;
+                            left: 55%;
+                            top: 74px;
+                            ion-input {
+                                display: none;
+                            }
+                            ion-icon.camera {
+                                cursor: pointer;
+                                font-size: 16px;
+                                color: gray;
+                                background-color: white;
+                                padding: 4px;
+                                border-radius: 100%;
+                                border: 1px solid gray;
+                            }
+                        }
+                    }
+                    ion-icon.pencil {
+                        width: 37px;
+                        height: 20px;
+                        left: 75%;
+                        top: 18px;
+                        position: absolute;
+                        cursor: pointer;
+                        font-size: 20px;
+                        color: gray;
+                        padding-bottom: 2px;
+                        &::before {
+                            position: absolute;
+                            content: "";
+                            background-color: gray;
+                            width: 20px;
+                            height: 2px;
+                            bottom: 0;
+                            left: 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

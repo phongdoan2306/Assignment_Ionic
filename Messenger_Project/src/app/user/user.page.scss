@@ -1,0 +1,139 @@
+:host {
+    background-color: rgb(20, 57, 74);
+    --offset-top: 200px;
+  }
+  
+  //tat thanh cuon trang..
+  ::-webkit-scrollbar,
+  *::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .name {
+    h3 {
+      font-style: oblique;
+      color: lightyellow;
+      text-align: center;
+    }
+  }
+  
+  ion-content {
+    --background: transparent;
+    transform: translate3d(0, 100px, 0);
+    transition: 0.5s;
+  }
+  
+  .no-transform {
+    transform: translate3d(0, 0, 0) !important;
+  }
+  
+  ion-toolbar {
+    --background: transparent;
+    --border-width: 0 !important;
+  }
+  
+  .content-container {
+    height: 100%;
+    border-radius: 30px;
+    padding-top: 12px;
+    background-color: #fff;
+    overflow: scroll;
+    padding-bottom: 45px;
+  }
+  //
+  //.content-container:hover{
+  
+  //icon slide kéo
+  button {
+    height: auto;
+    width: 60px;
+    .btnicon1 {
+      font-size: 30px;
+      color: black;
+    }
+    .btnicon2 {
+      font-size: 30px;
+      color: black;
+    }
+    .btnicon3 {
+      font-size: 30px;
+      color: #fff;
+    }
+  }
+  .btn1 {
+    background-color: rgb(134, 150, 145);
+  }
+  .btn3 {
+    background-color: red;
+  }
+  
+  ion-avatar {
+    margin: auto;
+    height: 95px;
+    width: 95px;
+  }
+  
+  .icon3 {
+    height: 35px;
+    width: 35px;
+    font-size: 30px;
+    border-radius: 5px;
+    color: #0eff4a;
+    background: white;
+    border-radius: 50%;
+    border: 0px solid #f7f3f3;
+  }
+  .icon4 {
+    height: 35px;
+    width: 35px;
+    font-size: 30px;
+    border-radius: 5px;
+    color: white;
+    background: red;
+    border-radius: 50%;
+    border: 0px solid #f7f3f3;
+  }
+  .icon5 {
+    height: 35px;
+    width: 35px;
+    font-size: 30px;
+    border-radius: 5px;
+    color: white;
+    background: rgb(80, 8, 248);
+    border-radius: 50%;
+    border: 0px solid #f7f3f3;
+  }
+  .icon6 {
+    height: 35px;
+    width: 35px;
+    font-size: 30px;
+    border-radius: 5px;
+    color: white;
+    background: #6a0180;
+    border-radius: 50%;
+    border: 0px solid #f7f3f3;
+  }
+  .icon7 {
+    height: 35px;
+    width: 35px;
+    font-size: 30px;
+    border-radius: 5px;
+    color: white;
+    background: skyblue;
+    border-radius: 50%;
+    border: 0px solid #f7f3f3;
+  }
+  .icon8 {
+    height: 35px;
+    width: 35px;
+    font-size: 30px;
+    border-radius: 5px;
+    color: white;
+    background: #000655;
+    border-radius: 50%;
+    border: 0px solid #f7f3f3;
+  }
+  .item:hover{
+    cursor: pointer;
+    background-color: rgb(158, 45, 45) !important;
+  } 

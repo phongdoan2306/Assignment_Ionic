@@ -1,9 +1,61 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>user</ion-title>
+    <ion-buttons slot="end" routerLink="/home">
+      <ion-button>
+        <ion-icon name="chevron-forward"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<nav>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-avatar>
+          <img src="{{userData.photoURL}}">
+        </ion-avatar>
+        <div class="name">
+          <h3>{{userData.displayName}}</h3>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</nav>
 
+<ion-content>
+  <div class="ion-padding content-container">
+    <ion-list-header #triggerElement>
+      <h5>TRANG CÁ NHÂN</h5>
+    </ion-list-header>
+    <ion-item-sliding>
+      <ion-item class="item">
+        <ion-label>Bạn bè hoạt động</ion-label>
+        <ion-icon class="icon3" slot="start" name="radio-button-on"></ion-icon>
+      </ion-item>
+      <ion-item-options size="right">
+        <button class="btn1" color="danger" ion-button>
+          <ion-icon class="btnicon1" name="menu-outline"></ion-icon>
+        </button>
+        <button color="danger" ion-button>
+          <ion-icon class="btnicon2" name="notifications-outline"></ion-icon>
+        </button>
+        <button class="btn3" color="danger" ion-button>
+          <ion-icon class="btnicon3" name="trash"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item class="item" (click)='goDetailInfor()' >
+      <h6>Thông tin người dùng</h6>
+      <ion-icon class="icon4" slot="start" name="person"></ion-icon>
+    </ion-item>
+    <ion-item class="item">
+      <h6>Danh bạ</h6>
+      <ion-icon class="icon7" slot="start" name="people"></ion-icon>
+    </ion-item>
+    <ion-item class="item" (click)="logOut()">
+      <h6>Đăng Xuất</h6>
+      <ion-icon class="icon8" slot="start" name="log-out"></ion-icon>
+    </ion-item>
+  </div>
 </ion-content>

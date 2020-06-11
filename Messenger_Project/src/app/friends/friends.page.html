@@ -1,9 +1,67 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>friends</ion-title>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="2">
+          <ion-avatar (click)="goUserInfor()">
+            <img src="{{userData.photoURL}}">
+          </ion-avatar>
+        </ion-col>
+        <ion-col size="6">
+          <b>Danh bạ</b>
+        </ion-col>
+        <ion-col size="4">
+          <div class="icon">
+            <i class="fas fa-address-book"></i>
+            <i class="fas fa-user-plus" (click)="goAddFriends()"></i>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <nav>
+    <ion-searchbar [(ngModel)]="searchstring" (input)="searchuser($event)" placeholder="Search"></ion-searchbar>
+  </nav>
+  <nav>
+    <ion-grid>
+      <ion-row *ngFor='let friend of myFriends' (click)="buddyChat(friend)">
+        <ion-col size="2">
+          <ion-avatar>
+            <img src="{{friend.photoURL}}">
+          </ion-avatar>
+        </ion-col>
+        <ion-col size="8">
+          <p>{{friend.displayName}}</p>
+        </ion-col>
+        <ion-col size="2">
+          <div class="circle"></div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </nav>
 </ion-content>
+<ion-footer style="background-color: white;">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div class="footer" [routerLink]="['/home']">
+          <i class="fas fa-comment"></i>
+          <a class="chat">
+            <p>Chat</p>
+          </a>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="footer" [routerLink]="['list-friends']">
+          <i class="fas fa-user-friends"></i>
+          <a class="friend">
+            <p>Danh bạ</p>
+          </a>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

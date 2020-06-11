@@ -1,9 +1,35 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>addfriend</ion-title>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="2">
+          <i class="fas fa-arrow-left" (click)="backListFriends()"></i>
+        </ion-col>
+        <ion-col size="10">
+          <p>Thêm người liên hệ</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <div class="custom">
+    <ion-searchbar [(ngModel)]="searchstring" (input)="searchuser($event)" placeholder="Search"></ion-searchbar>
+    <div class="lists">
+      <i class="fas fa-address-book"></i>
+      <p>Danh sách gợi ý</p>
+    </div>
+    <ion-list>
+      <ion-item-sliding *ngFor='let user of listUser'>
+        <ion-item>
+          <img src="{{user.photoURL}}" alt="user">
+          <ion-label>{{user.displayName}}</ion-label>
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option (click)="sendreq(user)">Add</ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </div>
 </ion-content>

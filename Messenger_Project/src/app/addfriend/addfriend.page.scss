@@ -1,0 +1,84 @@
+*::-webkit-scrollbar,
+::-webkit-scrollbar {
+    display: none;
+}
+
+.ios ion-toolbar,
+.md ion-toolbar {
+    --border-width: 0;
+}
+
+ion-header {
+    ion-toolbar {
+        --border-width: 0;
+        ion-grid {
+            ion-row {
+                ion-col {
+                    height: 30px;
+                    .fa-arrow-left {
+                        cursor: pointer;
+                        font-weight: bold;
+                        font-size: 23px;
+                        margin-left: 5px;
+                    }
+                    p {
+                        display: inline-block;
+                        font-family: 'Roboto', sans-serif;
+                        font-size: 18px;
+                        margin: 0;
+                        font-weight: bold;
+                        height: 30px;
+                        padding-top: 2px;
+                    }
+                }
+            }
+        }
+    }
+}
+ion-content{
+    .custom {
+        width: 90%;
+        margin-top: 10px;
+        ion-searchbar {
+            border: 1px solid white;
+            border-radius: 20px;
+            background-color: white;
+            width: 100%;
+            margin-left: 10px;
+        }
+        .lists {
+
+            i {
+                margin-top: 5px;
+                margin-left: 15px;
+                border-radius: 100%;
+                border: 1px solid #ebebeb;
+                padding: 6px 7px;
+                background-color: #ebebeb;
+            }
+            p {
+                margin-top: 5px;
+                font-size: 13px;
+                color: gray;
+                font-weight: 600;
+                margin-left: 15px;
+                display: inline-block;
+            }
+        }
+        ion-list{
+            ion-item-sliding{
+                ion-item{
+                    img{
+                        border: 1px solid black;
+                        border-radius: 50%;
+                        width: 35px;
+                        height: 35px;
+                    }
+                    ion-label{
+                        margin-left: 10px;
+                    }
+                }
+            }
+        }
+    }
+}

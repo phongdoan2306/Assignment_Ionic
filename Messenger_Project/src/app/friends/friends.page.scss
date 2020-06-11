@@ -1,0 +1,104 @@
+*::-webkit-scrollbar,
+::-webkit-scrollbar {
+    display: none;
+}
+
+.header-scroll {
+    border-bottom: 1px solid black;
+}
+
+.ios ion-toolbar,
+.md ion-toolbar {
+    --border-width: 0;
+}
+
+:focus {
+    outline: none;
+}
+ion-header {
+    border: 1px solid black;
+    border-bottom: 0;
+    ion-toolbar {
+        ion-grid {
+            ion-row {
+                ion-col {
+                    padding: 0;
+                    b {
+                        font-size: 22px;
+                        font-family: "Fjalla One", sans-serif;
+                        height: 40px;
+                        display: block;
+                        padding-left: 13px;
+                        padding-top: 5px;
+                    }
+                    ion-avatar {
+                        cursor: pointer;
+                        height: 40px;
+                        text-align: center;
+                        img {
+                            width: 70%;
+                            height: 35px;
+                            margin-left: 12px;
+                        }
+                        &:focus {
+                            outline: 0;
+                        }
+                    }
+                    .icon {
+                        height: 40px;
+                        .fas {
+                            border: 1px solid #f0f0f0;
+                            background-color: #f0f0f0;
+                            padding: 8px;
+                            border-radius: 100%;
+                        }
+                        .fa-user-plus {
+                            margin-left: 10px;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+ion-content {
+    border: 1px solid black;
+}
+ion-footer {
+    border: 1px solid black;
+    border-top: 0;
+    box-shadow: 0 -3px 5px ghostwhite;
+    ion-grid {
+        ion-row {
+            text-align: center;
+            ion-col {
+                padding: 0 !important;
+                .footer {
+                    cursor: pointer;
+                }
+                a {
+                    text-decoration: none;
+                    color: gray !important;
+                    font-size: 16px;
+                    p {
+                        font-weight: bold;
+                        padding: 0;
+                        margin: 0;
+                    }
+                }
+                a.friend {
+                    color: black;
+                }
+                .fa-user-friends {
+                    font-size: 22px;
+                    // color: gray;
+                }
+                .fa-comment {
+                    font-size: 22px;
+                    color: gray;
+                }
+            }
+        }
+    }
+}

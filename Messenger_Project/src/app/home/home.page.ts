@@ -22,21 +22,16 @@ export class HomePage {
   constructor(private router: Router, private userService: UserService, private zone: NgZone,
     private modalCtrl: ModalController
   ) {
-    // this.userService.setFriendsOfUser();
+    this.userService.setFriendsOfUser();
     this.userData = JSON.parse(localStorage.getItem('user'));
     this.userService.getListChatted().then((resp: any) => {
       this.myFriends = resp;
-      // console.log(this.myFriends)
       this.temparr = resp;
     });
     this.userService.getMyRequests().then((res: any) => {
       this.myRequest = res;
       this.lengthReq = this.myRequest.length;
     });
-    // userService.getMyFriends().then((data) => {
-    //   console.log(data);
-    // });
-
   }
 
   ngOnInit() {

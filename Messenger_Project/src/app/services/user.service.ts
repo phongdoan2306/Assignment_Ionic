@@ -333,17 +333,19 @@ export class UserService {
     this.buddy = buddy;
   }
 
-  addNewMessage(msg) {
+  addNewMessage(msg, isPhoto) {
     if (this.buddy) {
       return new Promise((resolve, reject) => {
         this.fireBuddyChats.child(firebase.auth().currentUser.uid).child(this.buddy.uid).push({
           sentby: firebase.auth().currentUser.uid,
           msg: msg,
+          isImaged: isPhoto,
           timestamp: firebase.database.ServerValue.TIMESTAMP
         }).then(() => {
           this.fireBuddyChats.child(this.buddy.uid).child(firebase.auth().currentUser.uid).push({
             sentby: firebase.auth().currentUser.uid,
             msg: msg,
+            isImaged: isPhoto,
             timestamp: firebase.database.ServerValue.TIMESTAMP
           }).then(() => {
             resolve({ success: true });

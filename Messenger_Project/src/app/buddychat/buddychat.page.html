@@ -35,7 +35,7 @@
         
         <ion-col offset="3" size="9" *ngIf="message.sentby === currentUser" class="message my-message">
           <img *ngIf="message.isImaged == true" src="{{message.msg}}"/>
-          <h5 class="user" *ngIf="message.isImaged == false">{{ message.msg }}</h5>
+          <h5 class="friend" *ngIf="message.isImaged == false">{{ message.msg }}</h5>
         </ion-col>
 
       </ion-row>
@@ -46,16 +46,16 @@
 <ion-footer>
   <ion-toolbar color="light">
     <ion-row align-items-center>
-      <ion-col size="8">
-        <ion-textarea auto-grow class="message-input" rows="1" col="3" [(ngModel)]="message"></ion-textarea>
+      <ion-col size="9">
+        <ion-textarea  class="message-input" rows="1000" col="10" [(ngModel)]="message"></ion-textarea>
       </ion-col>
       <ion-col size="2">
         <label class="msg-btn-1">
           <input type="file" (change)="sendImage($event.target.files)">
-          <ion-icon name="camera"></ion-icon>
+          <ion-icon name="camera" class="camera"></ion-icon>
         </label>
       </ion-col>
-      <ion-col size="2">
+      <ion-col size="1">
         <ion-buttons>
           <button ion-button (click)="sendMessage()" class="msg-btn-2">
             <ion-icon name="send"></ion-icon>

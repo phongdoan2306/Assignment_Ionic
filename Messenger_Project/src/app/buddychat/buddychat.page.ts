@@ -13,7 +13,7 @@ export class BuddychatPage implements OnInit {
 
   userData: any;
   buddy: any;
-  message : any;
+  message: any;
   messages = [];
   currentUser = '';
 
@@ -24,17 +24,7 @@ export class BuddychatPage implements OnInit {
     this.buddy = userService.buddy;
     this.currentUser = this.userData.uid;
     this.userService.getBuddyMessages().then((res: any) => {
-      let msg = '';
-      let result = [];
       this.messages = res;
-      for (let message of this.messages) {   
-        result = [];     
-        message = Object.assign(message, {isImaged: false})
-        result = message.msg.match('^https:\/\/firebase.*$');
-       
-        if(result == null) continue;
-        else {message.isImaged = true; console.log(message.isImaged)}
-      };
     });
   }
 
@@ -46,9 +36,9 @@ export class BuddychatPage implements OnInit {
   }
 
   sendMessage() {
-    this.socket.emit('send-message', { text: this.message, sentby: this.userData.uid });
-    this.userService.addNewMessage(this.message).then((res: any) => {
-      if(res){
+    this.socket.emit('send-message', { text: this.message, sentby: this.userData.uid, isImaged: this.isImaged() });
+    this.userService.addNewMessage(this.message, this.isImaged()).then((res: any) => {
+      if (res) {
         this.message = '';
       }
     });
@@ -61,6 +51,14 @@ export class BuddychatPage implements OnInit {
     });
   }
 
+  isImaged() {
+    let result = this.message.match('^https:\/\/firebase.*$');
+    if (result == null) {
+      return false;
+    } else {
+      return true;
+    }
+  }
   backHome() {
     this.router.navigate(['/home'])
   }

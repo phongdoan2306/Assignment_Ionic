@@ -13,7 +13,7 @@ export class BuddychatPage implements OnInit {
 
   userData: any;
   buddy: any;
-  message = '';
+  message : any;
   messages = [];
   currentUser = '';
 
@@ -24,7 +24,17 @@ export class BuddychatPage implements OnInit {
     this.buddy = userService.buddy;
     this.currentUser = this.userData.uid;
     this.userService.getBuddyMessages().then((res: any) => {
+      let msg = '';
+      let result = [];
       this.messages = res;
+      for (let message of this.messages) {   
+        result = [];     
+        message = Object.assign(message, {isImaged: false})
+        result = message.msg.match('^https:\/\/firebase.*$');
+       
+        if(result == null) continue;
+        else {message.isImaged = true; console.log(message.isImaged)}
+      };
     });
   }
 
@@ -32,19 +42,23 @@ export class BuddychatPage implements OnInit {
     this.socket.emit('set-name', this.userData.displayName);
     this.socket.fromEvent('message').subscribe(message => {
       this.messages.push(message);
-      console.log(message);
-      console.log(this.messages);
     });
   }
 
   sendMessage() {
     this.socket.emit('send-message', { text: this.message, sentby: this.userData.uid });
     this.userService.addNewMessage(this.message).then((res: any) => {
-      console.log(this.message);
       if(res){
         this.message = '';
       }
-    })
+    });
+  }
+
+  sendImage(files: FileList) {
+    let photoData = files.item(0);
+    this.userService.uploadImage(photoData).then((url) => {
+      this.message = url;
+    });
   }
 
   backHome() {

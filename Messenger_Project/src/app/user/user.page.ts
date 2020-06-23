@@ -79,9 +79,10 @@ export class UserPage implements OnInit {
   logOut() {
     this.userService.SignOut().then(() => {
       localStorage.removeItem('user');
+      localStorage.removeItem('friends');
     });
     this.router.navigate(['/signin'])
   }
-
+  
 
 }

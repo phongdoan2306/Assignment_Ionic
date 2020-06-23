@@ -126,6 +126,7 @@ ion-footer {
     ion-toolbar {
         ion-row {
             ion-col {
+                position: relative;
                 .message-input {
                     margin-top: 2px;
                     border: 1px solid var(--ion-color-medium);
@@ -141,7 +142,17 @@ ion-footer {
                     font-family: "Times New Roman", Times, serif;
                     font-size: 16px;
                 }
-                .msg-btn {
+                .msg-btn-1 {
+                    position: absolute;
+                    margin-top: 5px;
+                    color: blue;
+                    font-size: 20px;
+                    cursor: pointer;
+                    input {
+                        display: none;
+                    }
+                }
+                .msg-btn-2 {
                     margin-top: 5px;
                     color: blue;
                     font-size: 20px;

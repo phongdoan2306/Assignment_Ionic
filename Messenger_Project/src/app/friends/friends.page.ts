@@ -8,15 +8,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./friends.page.scss'],
 })
 export class FriendsPage implements OnInit {
+  
   userData: any;
   myFriends = [];
   temparr = [];
+  
   constructor(private userService: UserService, private router: Router) {
     this.userData = JSON.parse(localStorage.getItem('user'));
-    this.userService.getMyFriends().then((res: any) => {
-      this.myFriends = res;
-      this.temparr = res;
-    });
+    // this.userService.getMyFriends().then((res: any) => {
+    //   this.myFriends = res;
+    //   console.log("4 "+res)
+    //   this.temparr = res;
+    // });
+    this.myFriends = JSON.parse(localStorage.getItem('friends'));
+    this.temparr = JSON.parse(localStorage.getItem('friends'));
    }
 
   ngOnInit() {
@@ -35,7 +40,7 @@ export class FriendsPage implements OnInit {
       return false;
     })
   }
-
+ 
   buddyChat(buddy) {
     this.userService.initializeBuddy(buddy);
     this.router.navigate(['/buddychat'])

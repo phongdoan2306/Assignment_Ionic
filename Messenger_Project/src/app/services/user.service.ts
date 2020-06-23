@@ -32,6 +32,16 @@ export class UserService {
     });
   }
 
+  setFriendsOfUser() {
+    this.getMyFriends().then((res: any) => {
+      if (res) {
+        localStorage.setItem('friends', JSON.stringify(res));
+      } else {
+        localStorage.setItem('friends', null);
+      }
+    });
+  }
+
   // Login in with email/password
   signIn(user: UserCreds) {
     return new Promise((resolve, reject) => {
@@ -98,6 +108,7 @@ export class UserService {
             firebase.database().ref('users/' + firebase.auth().currentUser.uid).update({
               uid: firebase.auth().currentUser.uid,
               displayName: firebase.auth().currentUser.displayName,
+              email: firebase.auth().currentUser.email,
               photoURL: url
             }).then(() => {
               resolve(url);
@@ -114,6 +125,28 @@ export class UserService {
         reject(err);
       })
     })
+  }
+
+  // Upload a image send message
+  uploadImage(imageData) {
+    const filename = imageData.name;
+    const path = `/messageImages/${new Date().getTime()}_${filename}`;
+    const fileRef = firebase.storage().ref(path);
+    return new Promise((resolve, reject) => {
+      fileRef.put(imageData).then((snap) => {
+        firebase.storage().ref('/messageImages').child(`/${snap.metadata.name}`).getDownloadURL().then((url) => {
+          resolve(url);
+        }).catch((err) => {
+          reject(err);
+        })
+      }).catch((err) => {
+        reject(err);
+      })
+    });
+  }
+
+  // Delete old image
+  deleteImage() {
 
   }
 
@@ -226,6 +259,7 @@ export class UserService {
   getMyFriends() {
     return new Promise((resolve, reject) => {
       let friendsUid = [];
+      // console.log(firebase.auth());
       this.fireFriends.child(firebase.auth().currentUser.uid).on('value', (snapshot) => {
         let allFriends = snapshot.val();
         for (var i in allFriends) {
@@ -372,4 +406,3 @@ export class UserService {
     return firebase.auth().signOut();
   }
 }
- 

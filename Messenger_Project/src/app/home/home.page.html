@@ -1,86 +1,86 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-avatar slot="start" (click)="openUser()">
-      <img src="{{userData.photoURL}}" alt="user-image" />
-    </ion-avatar>
-    <ion-title slot="primary">CHAT</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="opentModal()">
-        <ion-badge color="danger">{{lengthReq}}</ion-badge>
-        <ion-icon name="notifications-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-avatar slot="start" (click)="openUser()">
+            <img src="{{userData.photoURL}}" alt="user-image" />
+        </ion-avatar>
+        <ion-title slot="primary">CHAT</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="opentModal()">
+                <ion-badge color="danger">{{lengthReq}}</ion-badge>
+                <ion-icon name="notifications-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="container">
-    <nav>
-      <ion-searchbar [(ngModel)]="searchstring" (input)="searchuser($event)" placeholder="Search"></ion-searchbar>
-    </nav>
-    <article>
-      <ion-list id="listUser" *ngFor='let friend of myFriends'>
-        <ion-item-sliding>
-          <ion-item-options side="start">
-            <ion-item-option>
-              <i class="fas fa-camera"></i>
-              <i class="fas fa-phone-alt"></i>
-              <i class="fas fa-video"></i>
-            </ion-item-option>
-          </ion-item-options>
+    <div class="container">
+        <nav>
+            <ion-searchbar [(ngModel)]="searchstring" (input)="searchuser($event)" placeholder="Search"></ion-searchbar>
+        </nav>
+        <article>
+            <ion-list id="listUser" *ngFor='let friend of myFriends'>
+                <ion-item-sliding>
+                    <ion-item-options side="start">
+                        <ion-item-option>
+                            <i class="fas fa-camera"></i>
+                            <i class="fas fa-phone-alt"></i>
+                            <i class="fas fa-video"></i>
+                        </ion-item-option>
+                    </ion-item-options>
 
-          <ion-item>
-            <ion-grid>
-              <ion-row (click)="buddyChat(friend)">
-                <ion-col size="2">
-                  <ion-avatar>
-                    <img src="{{friend.photoURL}}">
-                  </ion-avatar>
-                  <div class="circle-on"></div>
-                </ion-col>
-                <ion-col size="8">
-                  <h5>{{friend.displayName}}</h5>
-                  <p>Bạn:...</p>
-                </ion-col>
-                <ion-col size="2">
-                  <div class="circle-new"></div>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-item>
+                    <ion-item>
+                        <ion-grid>
+                            <ion-row (click)="buddyChat(friend)">
+                                <ion-col size="2">
+                                    <ion-avatar>
+                                        <img src="{{friend.photoURL}}">
+                                    </ion-avatar>
+                                    <div class="circle-on"></div>
+                                </ion-col>
+                                <ion-col size="8">
+                                    <h5>{{friend.displayName}}</h5>
+                                    <p>Bạn:...</p>
+                                </ion-col>
+                                <ion-col size="2">
+                                    <div class="circle-new"></div>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-item>
 
-          <ion-item-options side="end">
-            <ion-item-option>
-              <i class="fas fa-align-justify"></i>
-              <i class="fas fa-bell"></i>
-              <i class="fas fa-trash" id="delete" (click)="deleteMess()"></i>
-            </ion-item-option>
-          </ion-item-options>
-        </ion-item-sliding>
-      </ion-list>
-    </article>
-  </div>
+                    <ion-item-options side="end">
+                        <ion-item-option>
+                            <i class="fas fa-align-justify"></i>
+                            <i class="fas fa-bell"></i>
+                            <i class="fas fa-trash" id="delete" (click)="deleteMess()"></i>
+                        </ion-item-option>
+                    </ion-item-options>
+                </ion-item-sliding>
+            </ion-list>
+        </article>
+    </div>
 </ion-content>
 
 <ion-footer style="background-color: white;">
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <div class="footer">
-          <i class="fas fa-comment"></i>
-          <a class="chat">
-            <p>Chat</p>
-          </a>
-        </div>
-      </ion-col>
-      <ion-col>
-        <div class="footer" [routerLink]="['/friends']">
-          <i class="fas fa-user-friends"></i>
-          <a class="friend">
-            <p>Danh bạ</p>
-          </a>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <div class="footer">
+                    <i class="fas fa-comment"></i>
+                    <a class="chat">
+                        <p>Chat</p>
+                    </a>
+                </div>
+            </ion-col>
+            <ion-col>
+                <div class="footer" [routerLink]="['/friends']">
+                    <i class="fas fa-user-friends"></i>
+                    <a class="friend">
+                        <p>Danh bạ</p>
+                    </a>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-footer>

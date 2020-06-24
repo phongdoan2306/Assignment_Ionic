@@ -27,25 +27,16 @@ export class DetailPage implements OnInit {
   }
 
   async editImage(files: FileList) {
-    // let load = await this.loadingCtrl.create({
-    //   message: 'Please wait...',
-    //   translucent: false
-    // });
-    // await load.present();
+    let load = await this.loadingCtrl.create({
+      message: 'Please wait...',
+      translucent: false
+    });
+    await load.present();
     this.photoUrl = files.item(0);
-    let updateImage = await this.userService.updateImage(this.photoUrl).then((snap: any) => {
-      // this.userService.deleteImage(this.photoUrl).then((res: any) => {
-      // if (snap.success) {
-      console.log(snap)
-      // this.zone.run(() => {
-      this.photoUrl = snap;
-      this.userService.setUserOnLocal();
-      // })
-      // load.dismiss();
-      // }
-      // }).catch((err) => {
-      //   console.log(err.message);
-      // })
+    await this.userService.updateImage(this.photoUrl).then((snap: any) => {
+        this.photoUrl = snap;
+        this.userService.setUserOnLocal();
+        load.dismiss();
     }).catch((err) => {
       console.log(err.message);
     })

@@ -1,9 +1,12 @@
-import { Injectable } from '@angular/core';
-import { UserCreds, ConnReq } from './user.model';
+import { Injectable, NgZone } from '@angular/core';
+import { UserCreds, ConnReq, User } from './user.model';
+import { Router } from '@angular/router';
+import { auth } from 'firebase/app';
 import { Socket } from 'ngx-socket-io';
 import * as  firebase from 'firebase/app';
 import 'firebase/storage';
 import 'firebase/auth';
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +20,7 @@ export class UserService {
   fireFriends = firebase.database().ref('/friends');
   fireBuddyChats = firebase.database().ref('/buddychats');
 
-  constructor(private socket: Socket) {
+  constructor(private socket: Socket, public ngZone: NgZone, private router: Router) {
     this.setUserOnLocal();
     this.socket.connect();
   }
@@ -66,7 +69,8 @@ export class UserService {
             uid: firebase.auth().currentUser.uid,
             displayName: newUser.displayName,
             photoURL: '../../assets/user.png',
-            email: newUser.email
+            email: newUser.email,
+            emailVerified: firebase.auth().currentUser.emailVerified
           }).then(() => {
             resolve({ success: true });
           }).catch((err) => {
@@ -79,6 +83,73 @@ export class UserService {
         reject(err);
       })
     });
+  }
+
+  /* ---------------- Register with Gmail ----------------------*/
+
+  // Sign in with Gmail
+  GoogleAuth() {
+    return this.AuthLogin(new auth.GoogleAuthProvider());
+  }
+
+  // Auth providers
+  AuthLogin(provider) {
+    return firebase.auth().signInWithPopup(provider).then((result) => {
+      this.ngZone.run(() => {
+        this.router.navigate(['/home']);
+      })
+      this.SetUserData(result.user);
+    }).catch((error) => {
+      window.alert(error)
+    })
+  }
+
+  // Data user in Realtime Database
+  SetUserData(user) {
+    const fireDataRef = firebase.database().ref(`users/${user.uid}`)
+    const userData: User = {
+      uid: user.uid,
+      email: user.email,
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+      emailVerified: user.emailVerified
+    }
+    return fireDataRef.set(userData)
+  }
+
+  // Email verification when new user register
+  SendVerificationMail() {
+    return firebase.auth().currentUser.sendEmailVerification().then(() => {
+      console.log("confirm");
+    }).catch(err => {
+      console.log(err.message);
+    });
+  }
+
+  updateVerificationMail() {
+    this.fireData.child(firebase.auth().currentUser.uid).update({
+      uid: firebase.auth().currentUser.uid,
+      displayName: firebase.auth().currentUser.displayName,
+      photoURL: '../../assets/user.png',
+      email: firebase.auth().currentUser.email,
+      emailVerified: firebase.auth().currentUser.emailVerified
+    }).then(() => {
+      console.log("confirm true.")
+    }).catch((err) => {
+      console.log(err.message);
+    })
+  }
+
+  // Returns true when user is looged in
+  get isLoggedIn(): boolean {
+    const user = firebase.auth().currentUser;
+    return (user !== null && user.emailVerified !== false) ? true : false;
+  }
+
+  // Returns true when user's email is verified
+  get isEmailVerified(): boolean {
+    const user = firebase.auth().currentUser;
+    return (user.emailVerified != false) ? true : false;
   }
 
   // Recover password
@@ -188,6 +259,20 @@ export class UserService {
     })
   }
 
+  // Send request friend
+  sendRequest(req: ConnReq) {
+    return new Promise((resolve, reject) => {
+      this.fireReq.child(req.recipient).push({
+        sender: req.sender,
+        timestamp: firebase.database.ServerValue.TIMESTAMP
+      }).then(() => {
+        resolve({ success: true });
+      }).catch((err) => {
+        reject(err);
+      })
+    })
+  }
+
   // Get request friend
   userdetails;
   getMyRequests() {
@@ -221,10 +306,12 @@ export class UserService {
   acceptReq(buddy) {
     return new Promise((resolve, reject) => {
       this.fireFriends.child(firebase.auth().currentUser.uid).push({
-        uid: buddy.uid
+        uid: buddy.uid,
+        timestamp: firebase.database.ServerValue.TIMESTAMP
       }).then(() => {
         this.fireFriends.child(buddy.uid).push({
-          uid: firebase.auth().currentUser.uid
+          uid: firebase.auth().currentUser.uid,
+          timestamp: firebase.database.ServerValue.TIMESTAMP
         }).then(() => {
           this.deleteReq(buddy).then(() => {
             resolve({ success: true });
@@ -259,7 +346,6 @@ export class UserService {
   getMyFriends() {
     return new Promise((resolve, reject) => {
       let friendsUid = [];
-      // console.log(firebase.auth());
       this.fireFriends.child(firebase.auth().currentUser.uid).on('value', (snapshot) => {
         let allFriends = snapshot.val();
         for (var i in allFriends) {
@@ -285,44 +371,44 @@ export class UserService {
   // get list is not friends
   getNotFriends() {
     return new Promise((resolve, reject) => {
-      let allFriend = []
-      let allIdFriend = [];
-      let allUser = []
+      let notFriends = []
       this.getMyFriends().then((res: any) => {
-        allFriend = res;
-        for (var i in allFriend) {
-          allIdFriend.push(allFriend[i].uid);
+        let allFriends = res;
+        let idAllFriend = [];
+        for (const j in allFriends) {
+          idAllFriend.push(allFriends[j].uid)
         }
         this.getListUser().then((resp: any) => {
-          allUser = resp;
-          let notFriends = [];
+          let allUser = resp;
           for (var i in allUser) {
-            if (allIdFriend.indexOf(allUser[i].uid) == -1) {
+            if (idAllFriend.indexOf(allUser[i].uid) == -1) {
               notFriends.push(allUser[i]);
             }
           }
           resolve(notFriends);
         }).catch((err) => {
           reject(err);
-        })
+        });
       }).catch((err) => {
         reject(err);
-      })
-
-    })
+      });
+    });
   }
 
-  // Send request friend
-  sendRequest(req: ConnReq) {
+  deleteFriend(friendUid) {
     return new Promise((resolve, reject) => {
-      this.fireReq.child(req.recipient).push({
-        sender: req.sender
-      }).then(() => {
-        resolve({ success: true });
-      }).catch((err) => {
-        reject(err);
-      })
-    })
+      this.fireFriends.child(firebase.auth().currentUser.uid).orderByChild('uid').equalTo(friendUid).once('value', (snapshot) => {
+        let someKey;
+        for (const key in snapshot.val()) {
+          someKey = key;
+        }
+        this.fireFriends.child(firebase.auth().currentUser.uid).child(someKey).remove().then(() => {
+          resolve({ success: true });
+        }).catch((err) => {
+          reject(err);
+        });
+      });
+    });
   }
 
   /* ----------Buddy Chat --------------*/
@@ -333,17 +419,19 @@ export class UserService {
     this.buddy = buddy;
   }
 
-  addNewMessage(msg) {
+  addNewMessage(msg, isPhoto) {
     if (this.buddy) {
       return new Promise((resolve, reject) => {
         this.fireBuddyChats.child(firebase.auth().currentUser.uid).child(this.buddy.uid).push({
           sentby: firebase.auth().currentUser.uid,
           msg: msg,
+          isImaged: isPhoto,
           timestamp: firebase.database.ServerValue.TIMESTAMP
         }).then(() => {
           this.fireBuddyChats.child(this.buddy.uid).child(firebase.auth().currentUser.uid).push({
             sentby: firebase.auth().currentUser.uid,
             msg: msg,
+            isImaged: isPhoto,
             timestamp: firebase.database.ServerValue.TIMESTAMP
           }).then(() => {
             resolve({ success: true });
@@ -367,6 +455,16 @@ export class UserService {
         resolve(this.buddyMessages);
       })
     })
+  }
+
+  deleteBuddyChat(friend) {
+    return new Promise((resolve, reject) => {
+      this.fireBuddyChats.child(firebase.auth().currentUser.uid).child(friend.uid).remove().then(() => {
+        resolve({ success: true });
+      }).catch((err) => {
+        reject(err);
+      });
+    });
   }
 
   getListChatted() {

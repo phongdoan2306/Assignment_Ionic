@@ -2,6 +2,7 @@
     <div class="container">
         <div class="background">
             <b>MESSENGER</b>
+
             <form class="form">
                 <ion-input type="text" class="user-eff" [(ngModel)]="user.email" [ngModelOptions]="{standalone: true}" placeholder="Email">
                     <i class="fas fa-user"></i>
@@ -12,11 +13,13 @@
                     <span class="focus-border"><i></i></span>
                 </ion-input>
             </form>
+
             <div class="form">
                 <button type="submit" class="btn" (click)="signIn()">ĐĂNG NHẬP</button>
             </div>
             <div class="footer">
                 <a [routerLink]="['/signup']" class="signup">Đăng ký ?</a>
+                <button type="submit" (click)="userService.GoogleAuth()">GG</button>
                 <a [routerLink]="['/forgetpass']" class="forgetpass">Quên mật khẩu ?</a>
             </div>
         </div>

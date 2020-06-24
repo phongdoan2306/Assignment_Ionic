@@ -40,7 +40,6 @@
                 </ion-col>
                 <ion-col size="8">
                   <h5>{{friend.displayName}}</h5>
-                  <p>Bạn:...</p>
                 </ion-col>
                 <ion-col size="2">
                   <div class="circle-new"></div>
@@ -53,7 +52,7 @@
             <ion-item-option>
               <i class="fas fa-align-justify"></i>
               <i class="fas fa-bell"></i>
-              <i class="fas fa-trash" id="delete" (click)="deleteMess()"></i>
+              <i class="fas fa-trash" id="delete" (click)="deleteMess(friend)"></i>
             </ion-item-option>
           </ion-item-options>
         </ion-item-sliding>

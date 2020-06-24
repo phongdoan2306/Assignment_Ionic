@@ -37,7 +37,6 @@ export class NotificationPage implements OnInit {
         })
         await toast.present();
       }
-
     })
   }
 
@@ -46,7 +45,8 @@ export class NotificationPage implements OnInit {
       let toastF = await this.toastCtrl.create({
         message: 'Request removed!!!',
         duration: 2000
-      })
+      });
+      await toastF.present();
     }).catch((err) => {
       console.log(err);
     })

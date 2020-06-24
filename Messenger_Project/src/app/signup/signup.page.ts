@@ -31,9 +31,20 @@ export class SignupPage implements OnInit {
       translucent: false
     });
     await load.present();
-    this.userService.signUp(this.newUser).then((res: any) => {
+    this.userService.signUp(this.newUser).then(async (res: any) => {
       load.dismiss();
-      this.router.navigate(['/home']);
+      let alert = await this.alertCtrler.create({
+        header: 'Alert',
+        message: "Account registered successfully. Gmail access for authentication.",
+        buttons: [{
+          text: 'OK',
+          handler: () => {
+            this.userService.SendVerificationMail();
+            this.router.navigate(['/signin'])
+          }
+        }],
+      });
+      await alert.present();
     }).catch(async (err) => {
       load.dismiss();
       let alert = await this.alertCtrler.create({

@@ -23,8 +23,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div class="container">
+<ion-content >
+  <div class="container" #scrollMe [scrollTop]="scrollMe.scrollHeight">
     <ion-grid>
       <ion-row *ngFor="let message of messages">
 

@@ -19,9 +19,9 @@ export class SigninPage implements OnInit {
     private alertCtrl: AlertController, private loaderCtrl: LoadingController) { }
 
   ngOnInit() {
-    // this.userData = JSON.parse(localStorage.getItem('user'));
+    
   }
-  
+
   async signIn() {
     let load = await this.loaderCtrl.create({
       message: 'Please wait...',
@@ -29,17 +29,29 @@ export class SigninPage implements OnInit {
     });
     await load.present();
     this.userService.signIn(this.user).then(async (res) => {
-        load.dismiss();
+      load.dismiss();
+      if (this.userService.isEmailVerified) {
+        this.userService.updateVerificationMail(); 
         this.router.navigate(['/home']);
-      }).catch(async (error) => {
+      } else {
         load.dismiss();
         let alert = await this.alertCtrl.create({
           header: 'Alert',
-          message: error.message,
+          message: 'Email is not verified.',
           buttons: ['OK']
         });
         await alert.present();
-      })
+        return false
+      }
+    }).catch(async (error) => {
+      load.dismiss();
+      let alert = await this.alertCtrl.create({
+        header: 'Alert',
+        message: error.message,
+        buttons: ['OK']
+      });
+      await alert.present();
+    })
   }
 
 

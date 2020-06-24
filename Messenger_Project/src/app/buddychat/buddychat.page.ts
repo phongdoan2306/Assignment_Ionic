@@ -1,8 +1,9 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { ToastController } from '@ionic/angular';
 import { Socket } from 'ngx-socket-io';
+import { ScrollToBottomDirective } from '../services/scroll-to-bottom.directive';
 
 @Component({
   selector: 'app-buddychat',
@@ -10,6 +11,9 @@ import { Socket } from 'ngx-socket-io';
   styleUrls: ['./buddychat.page.scss'],
 })
 export class BuddychatPage implements OnInit {
+  
+  @ViewChild(ScrollToBottomDirective)
+  scroll : ScrollToBottomDirective;
 
   userData: any;
   buddy: any;
@@ -17,7 +21,7 @@ export class BuddychatPage implements OnInit {
   messages = [];
   currentUser = '';
 
-  constructor(private router: Router, private userService: UserService, private zone: NgZone,
+  constructor(private router: Router, private userService: UserService,
     private socket: Socket, private toastCtrl: ToastController
   ) {
     this.userData = JSON.parse(localStorage.getItem('user'));
@@ -59,6 +63,7 @@ export class BuddychatPage implements OnInit {
       return true;
     }
   }
+  
   backHome() {
     this.router.navigate(['/home'])
   }

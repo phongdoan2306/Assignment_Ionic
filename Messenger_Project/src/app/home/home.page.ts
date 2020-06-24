@@ -1,7 +1,7 @@
 import { Component, NgZone } from '@angular/core';
 import { ConnReq } from '../services/user.model';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { UserService } from '../services/user.service';
 import { NotificationPage } from '../notification/notification.page';
 
@@ -20,7 +20,7 @@ export class HomePage {
   newReq = {} as ConnReq;
 
   constructor(private router: Router, private userService: UserService, private zone: NgZone,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController, private toastCtrl: ToastController
   ) {
     this.userService.setFriendsOfUser();
     this.userData = JSON.parse(localStorage.getItem('user'));
@@ -64,8 +64,20 @@ export class HomePage {
     this.router.navigate(['/buddychat'])
   }
 
-  deleteMess() {
-
+   deleteMess(friend) {
+    this.userService.deleteBuddyChat(friend).then(async() => {
+      let toastF = await this.toastCtrl.create({
+        message: 'This is buddy chat removed!!!',
+        duration: 2000,
+      });
+      this.userService.getListChatted().then((resp: any) => {
+        this.myFriends = resp;
+        this.temparr = resp;
+      });
+      await toastF.present();
+    }).catch((err) => {
+      console.log(err.message)
+    })
   }
 
   openUser() {

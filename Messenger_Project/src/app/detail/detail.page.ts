@@ -33,14 +33,14 @@ export class DetailPage implements OnInit {
     });
     await load.present();
     this.photoUrl = files.item(0);
-    await this.userService.updateImage(this.photoUrl).then((snap: any) => {
-        this.photoUrl = snap;
-        this.userService.setUserOnLocal();
-        load.dismiss();
+    await this.userService.updateImage(this.photoUrl).then((url: any) => {
+      this.photoUrl = url;
+      this.userService.removeUserOnLocal();
+      this.userService.setUserOnLocal();
+      load.dismiss();
     }).catch((err) => {
       console.log(err.message);
     })
-
   }
 
   async editname() {
@@ -53,7 +53,7 @@ export class DetailPage implements OnInit {
       buttons: [{
         text: 'Cancel',
         role: 'cancel',
-        handler: data => {
+        handler: () => {
         }
       },
       {
@@ -69,6 +69,7 @@ export class DetailPage implements OnInit {
                 await toast.present();
                 this.zone.run(() => {
                   this.displayName = data.nickname;
+                  this.userService.removeUserOnLocal();
                   this.userService.setUserOnLocal();
                 });
               }

@@ -3,7 +3,6 @@ import { ConnReq } from '../services/user.model';
 import { Router } from '@angular/router';
 import { ToastController, AlertController } from '@ionic/angular';
 import { UserService } from '../services/user.service';
-import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'app-addfriend',
@@ -11,18 +10,20 @@ import * as firebase from 'firebase/app';
   styleUrls: ['./addfriend.page.scss'],
 })
 export class AddfriendPage implements OnInit {
+
   listUser = [];
   temparr = [];
   newReq = {} as ConnReq;
-  constructor(private router: Router, private userService: UserService, private alertCtrl: AlertController,
-    private toastCtrl: ToastController) { 
-      this.userService.getNotFriends().then((resp: any) => {
-        this.listUser = resp;
-      })
-      this.userService.getListUser().then((res: any) => {
-        this.temparr = res;
-      })
+  userData: any;
 
+  constructor(private router: Router, private userService: UserService, private alertCtrl: AlertController,
+    private toastCtrl: ToastController
+    ) {
+      this.userData = JSON.parse(localStorage.getItem('user'));
+      this.userService.getNotFriends(this.userData.uid).then((resp: any) => {
+        this.listUser = resp;
+        this.temparr = resp;
+      })
     }
 
   ngOnInit() {
@@ -43,7 +44,7 @@ export class AddfriendPage implements OnInit {
   }
 
   async sendreq(recipient) {
-    this.newReq.sender = firebase.auth().currentUser.uid;
+    this.newReq.sender = this.userData.uid;
     this.newReq.recipient = recipient.uid;
     if (this.newReq.sender === this.newReq.recipient) {
       let alert = await this.toastCtrl.create({

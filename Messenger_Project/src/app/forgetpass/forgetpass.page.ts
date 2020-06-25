@@ -10,21 +10,24 @@ import { UserService } from '../services/user.service';
 export class ForgetpassPage implements OnInit {
 
   email: any;
-  constructor(private router:Router, private userService: UserService) { }
+  constructor(private router: Router, private userService: UserService) { }
 
   ngOnInit() {
   }
+
   sendRecoverPass() {
     this.userService.PasswordRecover(this.email).then(() => {
-      this.router.navigate(['mess']);
+      this.router.navigate(['signin']);
     }).catch((err) => {
       console.log(err.message);
     })
   }
-  backMess(){
+
+  backMess() {
     this.router.navigate([''])
   }
-  goSignUp(){
+  
+  goSignUp() {
     this.router.navigate(['signup'])
   }
 

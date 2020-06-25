@@ -35,15 +35,19 @@ export class UserService {
     });
   }
 
-  setFriendsOfUser() {
-    this.getMyFriends().then((res: any) => {
-      if (res) {
-        localStorage.setItem('friends', JSON.stringify(res));
-      } else {
-        localStorage.setItem('friends', null);
-      }
-    });
+  removeUserOnLocal() {
+    localStorage.setItem('user', null);
   }
+
+  // setFriendsOfUser() {
+  //   this.getMyFriends().then((res: any) => {
+  //     if (res) {
+  //       localStorage.setItem('friends', JSON.stringify(res));
+  //     } else {
+  //       localStorage.setItem('friends', null);
+  //     }
+  //   });
+  // }
 
   // Login in with email/password
   signIn(user: UserCreds) {
@@ -120,9 +124,9 @@ export class UserService {
   // Email verification when new user register
   SendVerificationMail() {
     return firebase.auth().currentUser.sendEmailVerification().then(() => {
-      console.log("confirm");
+      return 1;
     }).catch(err => {
-      console.log(err.message);
+      err.message;
     });
   }
 
@@ -130,7 +134,7 @@ export class UserService {
     this.fireData.child(firebase.auth().currentUser.uid).update({
       uid: firebase.auth().currentUser.uid,
       displayName: firebase.auth().currentUser.displayName,
-      photoURL: '../../assets/user.png',
+      photoURL: firebase.auth().currentUser.photoURL,
       email: firebase.auth().currentUser.email,
       emailVerified: firebase.auth().currentUser.emailVerified
     }).then(() => {
@@ -198,7 +202,7 @@ export class UserService {
     })
   }
 
-  // Upload a image send message
+  // Upload a image send message  
   uploadImage(imageData) {
     const filename = imageData.name;
     const path = `/messageImages/${new Date().getTime()}_${filename}`;
@@ -343,10 +347,10 @@ export class UserService {
   }
 
   // Get my friends
-  getMyFriends() {
+  getMyFriends(uid) {
     return new Promise((resolve, reject) => {
       let friendsUid = [];
-      this.fireFriends.child(firebase.auth().currentUser.uid).on('value', (snapshot) => {
+      this.fireFriends.child(uid).once('value', (snapshot) => {
         let allFriends = snapshot.val();
         for (var i in allFriends) {
           friendsUid.push(allFriends[i].uid);
@@ -369,10 +373,10 @@ export class UserService {
   }
 
   // get list is not friends
-  getNotFriends() {
+  getNotFriends(uid) {
     return new Promise((resolve, reject) => {
       let notFriends = []
-      this.getMyFriends().then((res: any) => {
+      this.getMyFriends(uid).then((res: any) => {
         let allFriends = res;
         let idAllFriend = [];
         for (const j in allFriends) {
@@ -403,7 +407,17 @@ export class UserService {
           someKey = key;
         }
         this.fireFriends.child(firebase.auth().currentUser.uid).child(someKey).remove().then(() => {
-          resolve({ success: true });
+          this.fireFriends.child(friendUid).orderByChild('uid').equalTo(firebase.auth().currentUser.uid).once('value', (snap) => {
+            let idKey;
+            for (const key in snap.val()) {
+              idKey = key;
+            }
+            this.fireFriends.child(friendUid).child(idKey).remove().then(() => {
+              resolve({ success: true });
+            }).catch((err) => {
+              reject(err);
+            });
+          });
         }).catch((err) => {
           reject(err);
         });
@@ -467,9 +481,9 @@ export class UserService {
     });
   }
 
-  getListChatted() {
+  getListChatted(uid) {
     return new Promise((resolve, reject) => {
-      this.fireBuddyChats.child(firebase.auth().currentUser.uid).once('value', (snapshot) => {
+      this.fireBuddyChats.child(uid).once('value', (snapshot) => {
         let chatted = [];
         let allFriend = [];
         let key = [];
@@ -477,7 +491,7 @@ export class UserService {
           let childKey = childSnapshot.key;
           chatted.push(childKey);
         });
-        this.getMyFriends().then((res: any) => {
+        this.getMyFriends(uid).then((res: any) => {
           allFriend = res;
           for (var i in chatted) {
             for (var j in allFriend) {
@@ -503,4 +517,5 @@ export class UserService {
   SignOut() {
     return firebase.auth().signOut();
   }
+
 }

@@ -15,7 +15,7 @@ export class SignupPage implements OnInit {
     password: '',
     displayName: ''
   }
-  constructor (
+  constructor(
     private router: Router,
     private userService: UserService,
     private alertCtrler: AlertController, private loaderCtrl: LoadingController
@@ -25,26 +25,30 @@ export class SignupPage implements OnInit {
   ngOnInit() {
 
   }
+
   async signUp() {
     let load = await this.loaderCtrl.create({
       message: 'Please wait...',
       translucent: false
     });
     await load.present();
-    this.userService.signUp(this.newUser).then(async (res: any) => {
+    this.userService.signUp(this.newUser).then(() => {
       load.dismiss();
-      let alert = await this.alertCtrler.create({
-        header: 'Alert',
-        message: "Account registered successfully. Gmail access for authentication.",
-        buttons: [{
-          text: 'OK',
-          handler: () => {
-            this.userService.SendVerificationMail();
-            this.router.navigate(['/signin'])
-          }
-        }],
+      this.userService.SendVerificationMail().then(async (resp) => {
+        if (resp == 1) {
+          let alert = await this.alertCtrler.create({
+            header: 'Alert',
+            message: "Account registered successfully. Gmail access for authentication.",
+            buttons: [{
+              text: 'OK',
+              handler: () => {
+                this.router.navigate(['/signin'])
+              }
+            }],
+          });
+          await alert.present();
+        }
       });
-      await alert.present();
     }).catch(async (err) => {
       load.dismiss();
       let alert = await this.alertCtrler.create({
@@ -56,7 +60,7 @@ export class SignupPage implements OnInit {
     })
   }
 
-  backMess() {
+  backSignIn() {
     this.router.navigate([''])
   }
   goForgetPass() {

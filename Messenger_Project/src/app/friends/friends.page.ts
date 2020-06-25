@@ -18,8 +18,10 @@ export class FriendsPage implements OnInit {
     private zone: NgZone
     ) {
     this.userData = JSON.parse(localStorage.getItem('user'));
-    this.myFriends = JSON.parse(localStorage.getItem('friends'));
-    this.temparr = JSON.parse(localStorage.getItem('friends'));
+    this.userService.getMyFriends(this.userData.uid).then((resp: any) => {
+      this.myFriends = resp;
+      this.temparr = resp;
+    });
   }
 
   ngOnInit() {
@@ -46,7 +48,7 @@ export class FriendsPage implements OnInit {
         duration: 2000,
       });
        this.zone.run(() => {
-         this.userService.getMyFriends().then((resp: any) => {
+         this.userService.getMyFriends(this.userData.uid).then((resp: any) => {
            this.myFriends = resp;
            this.temparr = resp;
          })

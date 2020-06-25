@@ -1,7 +1,7 @@
 import { Component, NgZone } from '@angular/core';
 import { ConnReq } from '../services/user.model';
 import { Router } from '@angular/router';
-import { ModalController, ToastController } from '@ionic/angular';
+import { ModalController, ToastController, AlertController } from '@ionic/angular';
 import { UserService } from '../services/user.service';
 import { NotificationPage } from '../notification/notification.page';
 
@@ -20,11 +20,10 @@ export class HomePage {
   newReq = {} as ConnReq;
 
   constructor(private router: Router, private userService: UserService, private zone: NgZone,
-    private modalCtrl: ModalController, private toastCtrl: ToastController
+    private modalCtrl: ModalController, private toastCtrl: ToastController, private alertCtrl: AlertController
   ) {
-    this.userService.setFriendsOfUser();
     this.userData = JSON.parse(localStorage.getItem('user'));
-    this.userService.getListChatted().then((resp: any) => {
+    this.userService.getListChatted(this.userData.uid).then((resp: any) => {
       this.myFriends = resp;
       this.temparr = resp;
     });
@@ -35,7 +34,6 @@ export class HomePage {
   }
 
   ngOnInit() {
-
   }
 
   async opentModal() {
@@ -64,19 +62,26 @@ export class HomePage {
     this.router.navigate(['/buddychat'])
   }
 
-   deleteMess(friend) {
-    this.userService.deleteBuddyChat(friend).then(async() => {
+  deleteMess(friend) {
+    this.userService.deleteBuddyChat(friend).then(async () => {
       let toastF = await this.toastCtrl.create({
         message: 'This is buddy chat removed!!!',
         duration: 2000,
       });
-      this.userService.getListChatted().then((resp: any) => {
+      this.userService.getListChatted(this.userData.uid).then((resp: any) => {
         this.myFriends = resp;
         this.temparr = resp;
       });
       await toastF.present();
-    }).catch((err) => {
-      console.log(err.message)
+    }).catch(async (err) => {
+      let alert = this.alertCtrl.create({
+        header: 'Alert',
+        message: err.message,
+        buttons: [{
+          text: 'OK'
+        }]
+      });
+      (await alert).present();
     })
   }
 

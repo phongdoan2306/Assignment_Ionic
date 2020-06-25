@@ -46,20 +46,18 @@ export class NotificationPage implements OnInit {
         message: 'Request removed!!!',
         duration: 2000
       });
+      this.zone.run(() => {
+        this.userService.getMyRequests().then((resp: any) => {
+          this.myRequest = resp;
+        })
+      })
       await toastF.present();
-    }).catch((err) => {
-      console.log(err);
     })
   }
 
 
   async closeModal() {
     await this.modalCtrl.dismiss();
-    this.zone.run(() => {
-      this.userService.getMyRequests().then((res: any) => {
-        this.myRequest = res;
-      })
-    })
   }
 
 

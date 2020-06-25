@@ -68,10 +68,6 @@ export class UserPage implements OnInit {
     await actionSheet.present();
   }
 
-  backChat() {
-    this.router.navigate(["home"])
-  }
-
   goDetailInfor() {
     this.router.navigate(['/detail'])
   }
@@ -79,7 +75,6 @@ export class UserPage implements OnInit {
   logOut() {
     this.userService.SignOut().then(() => {
       localStorage.removeItem('user');
-      localStorage.removeItem('friends');
     });
     this.router.navigate(['/signin'])
   }

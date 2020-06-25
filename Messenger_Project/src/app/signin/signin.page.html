@@ -18,8 +18,9 @@
                 <button type="submit" class="btn" (click)="signIn()">ĐĂNG NHẬP</button>
             </div>
             <div class="footer">
+                <button type="submit" (click)="userService.GoogleAuth()" class="google">Google</button>
+                <span>G +</span>
                 <a [routerLink]="['/signup']" class="signup">Đăng ký ?</a>
-                <button type="submit" (click)="userService.GoogleAuth()">GG</button>
                 <a [routerLink]="['/forgetpass']" class="forgetpass">Quên mật khẩu ?</a>
             </div>
         </div>

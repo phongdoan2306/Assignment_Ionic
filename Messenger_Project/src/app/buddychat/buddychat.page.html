@@ -64,42 +64,4 @@
             </ion-col>
         </ion-row>
     </ion-toolbar>
-
-    <ion-toolbar color="light">
-        <ion-row align-items-center>
-            <ion-col size="9">
-                <ion-textarea class="message-input" rows="1000" col="10" [(ngModel)]="message"></ion-textarea>
-            </ion-col>
-            <ion-col size="2">
-                <label class="msg-btn-1">
-          <input type="file" (change)="sendImage($event.target.files)">
-          <ion-icon name="camera" class="camera"></ion-icon>
-        </label>
-            </ion-col>
-            <ion-col size="1">
-                <ion-buttons>
-                    <button ion-button (click)="sendMessage()" class="msg-btn-2">
-
-  <ion-toolbar color="light">
-    <ion-row align-items-center>
-      <ion-col size="9">
-        <ion-textarea  class="message-input" rows="1000" col="10" [(ngModel)]="message"></ion-textarea>
-      </ion-col>
-      <ion-col size="2">
-        <label class="msg-btn-1">
-          <input type="file" (change)="sendImage($event.target.files)">
-          <ion-icon name="camera" class="camera"></ion-icon>
-        </label>
-      </ion-col>
-      <ion-col size="1">
-        <ion-buttons>
-          <button ion-button (click)="sendMessage()" class="msg-btn-2">
-
-            <ion-icon name="send"></ion-icon>
-          </button>
-                </ion-buttons>
-            </ion-col>
-        </ion-row>
-    </ion-toolbar>
-
 </ion-footer>

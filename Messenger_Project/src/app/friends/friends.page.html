@@ -1,77 +1,77 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-grid>
-      <ion-row>
-        <ion-col size="2">
-          <ion-avatar (click)="goUserInfor()">
-            <img src="{{userData.photoURL}}">
-          </ion-avatar>
-        </ion-col>
-        <ion-col size="6">
-          <b>Danh bạ</b>
-        </ion-col>
-        <ion-col size="4">
-          <div class="icon">
-            <i class="fas fa-user-plus" (click)="goAddFriends()"></i>
-          </div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-grid>
+            <ion-row>
+                <ion-col size="2">
+                    <ion-avatar (click)="goUserInfor()">
+                        <img src="{{userData.photoURL}}">
+                    </ion-avatar>
+                </ion-col>
+                <ion-col size="6">
+                    <b>Danh bạ</b>
+                </ion-col>
+                <ion-col size="4">
+                    <div class="icon">
+                        <i class="fas fa-user-plus" (click)="goAddFriends()"></i>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="container">
-    <nav>
-      <ion-searchbar [(ngModel)]="searchstring" (input)="searchuser($event)" placeholder="Search"></ion-searchbar>
-    </nav>
-    <article>
-      <ion-list id="listUser" *ngFor='let friend of myFriends'>
-        <ion-item-sliding>
-            <ion-item>
-              <ion-grid>
-                <ion-row (click)="buddyChat(friend)">
-                  <ion-col size="2">
-                    <ion-avatar>
-                      <img src="{{friend.photoURL}}">
-                    </ion-avatar>
-                  </ion-col>
-                  <ion-col size="10">
-                    <h5>{{friend.displayName}}</h5>
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
-            </ion-item>
-            <ion-item-options side="end">
-              <ion-item-option>
-                <i class="fas fa-trash" id="delete" (click)="deleteFriend(friend)"></i>
-              </ion-item-option>
-            </ion-item-options>
-        </ion-item-sliding>
-      </ion-list>
-    </article>
-  </div>
+    <div class="container">
+        <nav>
+            <ion-searchbar [(ngModel)]="searchstring" (input)="searchuser($event)" placeholder="Search"></ion-searchbar>
+        </nav>
+        <article>
+            <ion-list id="listUser" *ngFor='let friend of myFriends'>
+                <ion-item-sliding>
+                    <ion-item>
+                        <ion-grid>
+                            <ion-row (click)="buddyChat(friend)">
+                                <ion-col size="2">
+                                    <ion-avatar>
+                                        <img src="{{friend.photoURL}}">
+                                    </ion-avatar>
+                                </ion-col>
+                                <ion-col size="10">
+                                    <h5>{{friend.displayName}}</h5>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-item>
+                    <ion-item-options side="end">
+                        <ion-item-option>
+                            <i class="fas fa-trash" id="delete" (click)="deleteFriend(friend)"></i>
+                        </ion-item-option>
+                    </ion-item-options>
+                </ion-item-sliding>
+            </ion-list>
+        </article>
+    </div>
 </ion-content>
 
 <ion-footer style="background-color: white;">
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <div class="footer" [routerLink]="['/home']">
-          <i class="fas fa-comment"></i>
-          <a class="chat">
-            <p>Chat</p>
-          </a>
-        </div>
-      </ion-col>
-      <ion-col>
-        <div class="footer" [routerLink]="['list-friends']">
-          <i class="fas fa-user-friends"></i>
-          <a class="friend">
-            <p>Danh bạ</p>
-          </a>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <div class="footer" [routerLink]="['/home']">
+                    <i class="fas fa-comment"></i>
+                    <a class="chat">
+                        <p>Chat</p>
+                    </a>
+                </div>
+            </ion-col>
+            <ion-col>
+                <div class="footer" [routerLink]="['list-friends']">
+                    <i class="fas fa-user-friends"></i>
+                    <a class="friend">
+                        <p>Danh bạ</p>
+                    </a>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-footer>
